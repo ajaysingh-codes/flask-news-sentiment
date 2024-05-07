@@ -2,8 +2,11 @@
 {% block title %} Articles result {% endblock %}
 
 {% block new_search %}
- <a class="nav-link" href="/">Search new topic</a>
- <a class="nav-link" href="{{ url_for('user_sentiment') }}">Analyze your text</a>
+<div class="nav-links">
+    <a class="nav-link" href="/">Search new topic</a>
+    <a class="nav-link" href="{{ url_for('user_sentiment') }}">Analyze your text</a>
+</div>
+
 {% endblock %}
 
 {% block content %}

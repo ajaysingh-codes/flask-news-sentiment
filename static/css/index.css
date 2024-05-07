@@ -1,11 +1,13 @@
 .chart-container {
     margin-top: 20px;
-    max-width: 560px;
+    max-width: 460px;
+    margin: 0 auto;
 }
 
 .header {
-    max-width: 640px;
-    text-align: left;
+    max-width:540px;
+    text-align: center;
+    margin-bottom: 40px;
 }
 
 .home-container {
@@ -16,8 +18,18 @@
     height: 100vh;
 }
 
+.nav-links {
+    display: flex;
+    justify-content: right;
+}
 .nav-link {
+    color: #333;
+    margin: 0 10px;
     text-decoration: none;
+}
+
+h1 {
+    margin: 0;
 }
 
 .sentiment {
@@ -39,4 +51,14 @@
 .sentiment.neutral {
     color: #3f51b5;
     background-color: #e3f2fd;
+}
+
+.container {
+    max-width: 1240px;
+    margin: 0 auto;
+    padding-top: 20px;
+}
+
+textarea {
+    resize: vertical;
 }

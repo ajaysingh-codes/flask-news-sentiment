@@ -9,22 +9,24 @@
 {% block content %}
 
 <div class="container">
-    <h1 class="mt-5">Text Analyzer</h1>
-    <form>
-        <div class="form-group">
-            <label for="userText">Enter your text:</label>
-            <textarea class="form-control" id="userText" name="text" rows="3"></textarea>
+    <h1 class="mt-5 mb-4">Get sentiment on your text</h1>
+    <form method="POST">
+        <div class="form-group mb-3">
+            <label for="userText" class="form-label">Enter your text:</label>
+            <textarea class="form-control" id="userText" name="userText" rows="3">{{ userText }}</textarea>
         </div>
         <button type="submit" class="btn btn-primary">Analyze</button>
     </form>
     <div>
-        <h2 class="mt-5">Sentiment Analysis</h2>
+        {% if sentiment %}
+        <h2 class="mt-5">Results</h2>
         <div class="card mt-3">
             <div class="card-body">
                 <h5 class="card-title">Sentiment</h5>
-                <p class="card-text">The sentiment of the text is: <span id="sentiment"></span>{{ sentiment }}</p>
+                <p class="card-text">The overall sentiment of your text is: <span id="sentiment">{{ sentiment }}</span></p>
             </div>
         </div>
+        {% endif %}
     </div>
 </div>
 

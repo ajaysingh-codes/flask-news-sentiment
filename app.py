@@ -4,20 +4,25 @@ from newsapi import NewsApiClient
 from config import API_KEY
 from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
 from collections import Counter
-from flask import request
+import pandas as pd
 
 import nltk
-import pandas as pd
-import matplotlib.pyplot as plt
-nltk.download('punkt')
-nltk.download('stopwords')
-nltk.download('wordnet')
-
-import re
-import string
 from nltk.corpus import stopwords
 from nltk.tokenize import word_tokenize
 from nltk.stem import WordNetLemmatizer
+import re
+import string
+
+# Download NLTK datasets
+def download_nltk_datasets():
+    datasets = ['punkt', 'stopwords', 'wordnet']
+    for dataset in datasets:
+        try:
+            nltk.download(dataset)
+        except Exception as err:
+            print(f"Failed to download dataset {dataset}: {str(err)}")
+
+download_nltk_datasets()
 
 # Initialize the sentiment analyzer
 analyzer = SentimentIntensityAnalyzer()
@@ -64,25 +69,25 @@ def query_articles():
 
 @app.route('/user_sentiment', methods=['GET', 'POST'])
 def user_sentiment():
-    if request.method == 'GET':
-        return render_template('sentiment.html')
-    else:
+    userText = ''
+    sentiment = ''
+    if request.method == 'POST':
         userText = request.form['userText']
-        print(userText)
         sentiment = get_sentiment(userText)
-        print(sentiment)
-        return render_template('sentiment.html', sentiment=sentiment)
+        return render_template('sentiment.html', sentiment=sentiment, userText=userText)
+    else:
+        return render_template('sentiment.html')
+
 
 stop_words = set(stopwords.words('english'))
-
+# Preprocess text
 def preprocess_text(text):
     text = text.lower()
     text = re.sub(r'<[^>]+>', ' ', text)
     text = re.sub(r'(http | https)://\S+', ' ', text)
 
-    # Remove punctuation using translation table
-    translator = str.maketrans('', '', string.punctuation)
-    text = text.translate(translator)
+    # Remove punctuations
+    text = text.translate(str.maketrans('', '', string.punctuation))
 
     # Tokenize the text
     tokens = word_tokenize(text)
@@ -90,9 +95,9 @@ def preprocess_text(text):
     # Remove stopwords and lemmatize
     lemmatizer = WordNetLemmatizer()
     tokens = [lemmatizer.lemmatize(token) for token in tokens if token not in stop_words]
-
     return ' '.join(tokens)
 
+# Method to get sentiment of a text
 def get_sentiment(text):
     analyzer = SentimentIntensityAnalyzer()
     sentiment = analyzer.polarity_scores(text)
