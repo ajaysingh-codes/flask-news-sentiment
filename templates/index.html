@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% block title %} Homepage {% endblock %}
+
+{% block content %}
+
+<div class="home-container">
+    <div class="row justify-content-center">
+        <div class="col-md-6 text-center">
+            <div class="header">
+                <h1>Enter a Topic to Get Sentiment Analysis on Related News</h1>
+                <p><p>Our tool analyzes the sentiment of news articles related to the topic you enter. It uses Natural Language Processing (NLP) techniques to determine whether the overall sentiment is positive, negative, or neutral. Enter a topic and let the tool do the rest!</p></p>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <form action="/query_articles" method="post">
+                <div class="form-group">
+                    <label for="user_topic">Topic:</label>
+                    <input type="text" class="form-control" id="user_topic" name="user_topic" placeholder="Type here..." required>
+                </div>
+                <div class="text-center">
+                    <button type="submit" class="btn btn-primary">Analyze Text</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

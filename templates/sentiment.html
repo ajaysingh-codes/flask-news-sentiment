@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block title %} Sentiment Analysis {% endblock %}
+
+{% block new_search %}
+    <a class="nav-link" href="/">Search new topic</a>
+{% endblock %}
+
+{% block content %}
+
+<div class="container">
+    <h1 class="mt-5">Text Analyzer</h1>
+    <form>
+        <div class="form-group">
+            <label for="userText">Enter your text:</label>
+            <textarea class="form-control" id="userText" name="text" rows="3"></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">Analyze</button>
+    </form>
+    <div>
+        <h2 class="mt-5">Sentiment Analysis</h2>
+        <div class="card mt-3">
+            <div class="card-body">
+                <h5 class="card-title">Sentiment</h5>
+                <p class="card-text">The sentiment of the text is: <span id="sentiment"></span>{{ sentiment }}</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
